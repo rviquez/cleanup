@@ -1,0 +1,14 @@
+{
+  "name": "cleanup",
+  "version": "1.0.0",
+  "description": "a cleanup script for tenants in auth0",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "roberto viquez",
+  "license": "MIT",
+  "dependencies": {
+    "request": "^2.88.0"
+  }
+}
