@@ -1,7 +1,7 @@
-var request = require('request');
+var request = require('request-promise');
 var config = require('../config');
 
-function getToken() {
+const getToken = async () => {
     var options = {
         method: 'POST',
         url: 'https://asolvi-dev.eu.auth0.com/oauth/token',
@@ -10,20 +10,10 @@ function getToken() {
         },
         body: `{"client_id":"${config.client_id}","client_secret":"${config.client_secret}","audience":"${config.apiUrl}","grant_type":"client_credentials"}`
     };
-
-    return new Promise(function (resolve, reject) {
-        request(options, function (error, response, body) {
-            if (error) {
-                reject(error);
-            } else {
-                var bodyJson = JSON.parse(body);
-                config.auth = `${bodyJson.token_type} ${bodyJson.access_token}`;
-                resolve(config.auth);
-            }
-            
-
-        });
-    })
+    const data = await request(options);
+    var bodyJson = JSON.parse(data);
+    config.auth = `${bodyJson.token_type} ${bodyJson.access_token}`;
+    return bodyJson;
 }
 
 module.exports = {
